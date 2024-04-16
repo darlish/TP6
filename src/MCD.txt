@@ -1,0 +1,64 @@
+Sub Create_Tables()
+
+DoCmd.RunSQL "CREATE TABLE Client(" & _
+   "Id_Client ," & _
+   "Nom VARCHAR(50)," & _
+   "Prénom VARCHAR(50)," & _
+   "Adresse_mail ," & _
+   "Numéro_de_téléphone INT," & _
+   "PRIMARY KEY(Id_Client)," & _
+   "UNIQUE(Adresse_mail)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Film_(" & _
+   "Id_Film_ ," & _
+   "Titre VARCHAR(50)," & _
+   "Genre VARCHAR(50)," & _
+   "Durée_du_film VARCHAR(50)," & _
+   "Réalisateur VARCHAR(50)," & _
+   "Année_de_sortie VARCHAR(50)," & _
+   "PRIMARY KEY(Id_Film_)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Salle(" & _
+   "Id_Salle COUNTER," & _
+   "Capacité INT," & _
+   "Nom INT," & _
+   "PRIMARY KEY(Id_Salle)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Séance(" & _
+   "Id_Séance ," & _
+   "Heure_de_début TIME," & _
+   "Heure_de_fin TIME," & _
+   "Date_de_la_séance DATETIME," & _
+   "Id_Salle INT," & _
+   "Id_Film_  NOT NULL," & _
+   "PRIMARY KEY(Id_Séance)," & _
+   "FOREIGN KEY(Id_Salle) REFERENCES Salle(Id_Salle)," & _
+   "FOREIGN KEY(Id_Film_) REFERENCES Film_(Id_Film_)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Employé(" & _
+   "Id_Employé ," & _
+   "Nom VARCHAR(50)," & _
+   "Prénom VARCHAR(50)," & _
+   "Numéro_de_téléphone ," & _
+   "Adresse_mail INT," & _
+   "Horaires_de_travail DATETIME," & _
+   "Salaire CURRENCY," & _
+   "PRIMARY KEY(Id_Employé)," & _
+   "UNIQUE(Numéro_de_téléphone)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Réservation(" & _
+   "ID_Réservation ," & _
+   "Nombre_de_places_réserées INT," & _
+   "Id_Séance  NOT NULL," & _
+   "Id_Client ," & _
+   "PRIMARY KEY(ID_Réservation)," & _
+   "FOREIGN KEY(Id_Séance) REFERENCES Séance(Id_Séance)," & _
+   "FOREIGN KEY(Id_Client) REFERENCES Client(Id_Client)" & _
+");"   
+
+End Sub
